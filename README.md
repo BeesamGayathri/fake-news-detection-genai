@@ -1,32 +1,48 @@
-# Fake News Detection with GenAI
+Beesam Gayathri – Data Science Portfolio 👩‍💻
 
-This project demonstrates a **Fake News Detection system** using Python, scikit-learn, and a simple machine learning model. The model predicts whether a news text is **Real News 📰** or **Fake News ❌**.
+Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-world problems using data and building end-to-end machine learning solutions, including deployment.
 
----
+💻 Skills
 
-## 📁 Project Structure
+Programming & Analysis: Python, SQL, Pandas, NumPy
 
+Machine Learning: Scikit-learn, ML models, Feature Engineering
 
----
+Deployment & Web Apps: Streamlit, Flask
 
-## 🛠️ How to Run
+Others: Data Visualization, Git, GitHub
 
-1. Clone the repository or download it to your local machine.
-2. Install dependencies:
+📂 Projects
+1️⃣ Fake News Classification 📰
 
-```bash
-pip install -r requirements.txt
-predict_news("Your news text here")
-## 📊 Dataset
+Classifies news articles as Real or Fake using a trained ML model.
 
-- CSV file: `data/fake_news.csv`  
-- Columns:
-  - `text` → news content  
-  - `label` → 1 = Real, 0 = Fake  
+Tech Stack: Python, Pandas, Scikit-learn, Streamlit
 
-Example rows:
+Live App: Click to Open
 
-| text                                  | label |
-|---------------------------------------|-------|
-| Government launches new AI initiative | 1     |
-| Celebrity endorses miracle diet       | 0     |
+GitHub Repo: fake-news-detection-genai
+
+2️⃣ Customer Churn Prediction 📊
+
+Predicts customer churn for a telecom company using classification models.
+
+Tech Stack: Python, Scikit-learn, Pandas, Data Analysis
+
+GitHub Repo: customer-churn-prediction
+ (add repo link if available)
+
+3️⃣ Recommendation System 🎯
+
+Personalized recommendation system based on user behavior.
+
+Tech Stack: Python, Machine Learning, Data Analysis
+
+GitHub Repo: recommendation-system
+ (add repo link if available)
+
+📫 Contact
+
+GitHub: https://github.com/gayathri-genai
+
+LinkedIn: https://linkedin.com/in/beesam-gayathri
