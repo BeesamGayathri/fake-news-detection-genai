@@ -16,7 +16,7 @@ Aspiring Data Scientist and Machine Learning Enthusiast with hands-on experience
 
 ## 📂 Projects
 
-### 1️⃣ Fake News Classification 📰
+### 1️⃣ Fake News Detection📰
 - Built a machine learning model to classify news articles as **Real** or **Fake**.
 - Implemented text preprocessing and feature extraction using NLP techniques.
 - Deployed the trained model as a **Streamlit web application**.
@@ -37,6 +37,7 @@ https://github.com/BeesamGayathri/fake-news-detection-genai
 - **LinkedIn:** https://linkedin.com/in/beesam-gayathri  
 
 > **Note:** If the repository link does not open temporarily, please refresh the page or try opening it in an incognito window.
+
 
 
 
