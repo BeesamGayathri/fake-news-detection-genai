@@ -20,7 +20,8 @@ Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-wo
 - Classifies news articles as **Real** or **Fake** using a trained ML model.  
 - **Tech Stack:** Python, Pandas, Scikit-learn, Streamlit  
 - **Live App:** [Click to Open](https://fake-news-detection-genai-affemcburdaahsrthtucvy.streamlit.app/)  
-- **GitHub Repo:** [fake-news-detection-genai](https://github.com/gayathri-genai/fake-news-detection-genai)
+- **GitHub Repo:** (https://github.com/gayathri-genai/fake-news-detection-genai)[fake-news-detection-genai]
+
 
 ---
 
@@ -35,5 +36,6 @@ Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-wo
 - Keep all project links **live and tested**.  
 - You can also add **badges** for Python, Streamlit, or GitHub to make your portfolio visually attractive.  
 - Update this README whenever you add new projects to keep your portfolio fresh.
+
 
 
