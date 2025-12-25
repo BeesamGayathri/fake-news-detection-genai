@@ -1,14 +1,14 @@
 # Beesam Gayathri – Data Science Portfolio 👩‍💻
 
-Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-world problems using data and building end-to-end machine learning solutions, including deployment.  
+Aspiring Data Scientist and Machine Learning Enthusiast with hands-on experience in building end-to-end machine learning projects, from data preprocessing and model training to deployment.
 
 ---
 
 ## 💻 Skills
 
 - **Programming & Analysis:** Python, SQL, Pandas, NumPy  
-- **Machine Learning:** Scikit-learn, ML models, Feature Engineering  
-- **Deployment & Web Apps:** Streamlit, Flask  
+- **Machine Learning:** Scikit-learn, Supervised ML, Feature Engineering  
+- **Model Deployment:** Streamlit  
 - **Data Visualization:** Matplotlib, Seaborn  
 - **Version Control:** Git, GitHub  
 
@@ -17,21 +17,27 @@ Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-wo
 ## 📂 Projects
 
 ### 1️⃣ Fake News Classification 📰
-- Classifies news articles as **Real** or **Fake** using a trained ML model.  
-- **Tech Stack:** Python, Pandas, Scikit-learn, Streamlit  
-- **Live App:** [Click to Open](https://fake-news-detection-genai-affemcburdaahsrthtucvy.streamlit.app/)  
-- **GitHub Repo:** [fake-news-detection-genai](https://github.com/BeesamGayathri/fake-news-detection-genai)
+- Built a machine learning model to classify news articles as **Real** or **Fake**.
+- Implemented text preprocessing and feature extraction using NLP techniques.
+- Deployed the trained model as a **Streamlit web application**.
+
+**Tech Stack:** Python, Pandas, Scikit-learn, Streamlit  
+
+🔗 **Live App:**  
+https://fake-news-detection-genai-affemcburdaahsrthtucvy.streamlit.app/
+
+🔗 **GitHub Repository:**  
+https://github.com/BeesamGayathri/fake-news-detection-genai
 
 ---
 
 ## 📫 Contact
 
-- **GitHub:** [https://github.com/gayathri-genai](https://github.com/BeesamGayathri/fake-news-detection-genai)  
-- **LinkedIn:** [https://linkedin.com/in/beesam-gayathri](https://linkedin.com/in/beesam-gayathri)  
+- **GitHub:** https://github.com/BeesamGayathri  
+- **LinkedIn:** https://linkedin.com/in/beesam-gayathri  
 
+> **Note:** If the repository link does not open temporarily, please refresh the page or try opening it in an incognito window.
 
-
-Note: If the repository link does not open temporarily, please try refreshing the page or opening it in an incognito window.
 
 
 
