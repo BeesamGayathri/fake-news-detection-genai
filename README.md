@@ -26,7 +26,7 @@ Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-wo
 
 ## 📫 Contact
 
-- **GitHub:** [https://github.com/gayathri-genai](https://github.com/gayathri-genai)  
+- **GitHub:** [https://github.com/gayathri-genai](https://github.com/BeesamGayathri/fake-news-detection-genai)  
 - **LinkedIn:** [https://linkedin.com/in/beesam-gayathri](https://linkedin.com/in/beesam-gayathri)  
 
 ---
@@ -35,3 +35,4 @@ Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-wo
 - Keep all project links **live and tested**.  
 - You can also add **badges** for Python, Streamlit, or GitHub to make your portfolio visually attractive.  
 - Update this README whenever you add new projects to keep your portfolio fresh.
+
