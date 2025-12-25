@@ -36,3 +36,4 @@ Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-wo
 - You can also add **badges** for Python, Streamlit, or GitHub to make your portfolio visually attractive.  
 - Update this README whenever you add new projects to keep your portfolio fresh.
 
+
