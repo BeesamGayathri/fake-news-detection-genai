@@ -1,0 +1,16 @@
+### 📝 Demo: Predicting Real vs Fake News
+
+Here are some example news inputs and the expected predictions from the model:
+
+| News Text | Expected Prediction |
+|-----------|-------------------|
+| The Prime Minister announced new policies to support small businesses across the country. | Real News 📰 |
+| NASA successfully launched the new satellite to study climate change patterns. | Real News 📰 |
+| Scientists discover a fruit that cures cancer instantly, experts shocked! | Fake News ❌ |
+| Celebrity reveals secret diet that guarantees 20kg weight loss in one week! | Fake News ❌ |
+| Government to ban all internet on weekends starting next month. | Fake News ❌ |
+
+💡 **How to test:**  
+1. Open the [Live App](https://fake-news-detection-genai-affemcburdaahsrthtucvy.streamlit.app/).  
+2. Copy and paste one of the example news articles into the text box.  
+3. Click **Predict** to see the result.
