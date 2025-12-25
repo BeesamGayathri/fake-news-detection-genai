@@ -1,48 +1,37 @@
-Beesam Gayathri – Data Science Portfolio 👩‍💻
+# Beesam Gayathri – Data Science Portfolio 👩‍💻
 
-Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-world problems using data and building end-to-end machine learning solutions, including deployment.
+Aspiring Data Scientist and Machine Learning Enthusiast. I enjoy solving real-world problems using data and building end-to-end machine learning solutions, including deployment.  
 
-💻 Skills
+---
 
-Programming & Analysis: Python, SQL, Pandas, NumPy
+## 💻 Skills
 
-Machine Learning: Scikit-learn, ML models, Feature Engineering
+- **Programming & Analysis:** Python, SQL, Pandas, NumPy  
+- **Machine Learning:** Scikit-learn, ML models, Feature Engineering  
+- **Deployment & Web Apps:** Streamlit, Flask  
+- **Data Visualization:** Matplotlib, Seaborn  
+- **Version Control:** Git, GitHub  
 
-Deployment & Web Apps: Streamlit, Flask
+---
 
-Others: Data Visualization, Git, GitHub
+## 📂 Projects
 
-📂 Projects
-1️⃣ Fake News Classification 📰
+### 1️⃣ Fake News Classification 📰
+- Classifies news articles as **Real** or **Fake** using a trained ML model.  
+- **Tech Stack:** Python, Pandas, Scikit-learn, Streamlit  
+- **Live App:** [Click to Open](https://fake-news-detection-genai-affemcburdaahsrthtucvy.streamlit.app/)  
+- **GitHub Repo:** [fake-news-detection-genai](https://github.com/gayathri-genai/fake-news-detection-genai)
 
-Classifies news articles as Real or Fake using a trained ML model.
+---
 
-Tech Stack: Python, Pandas, Scikit-learn, Streamlit
+## 📫 Contact
 
-Live App: Click to Open
+- **GitHub:** [https://github.com/gayathri-genai](https://github.com/gayathri-genai)  
+- **LinkedIn:** [https://linkedin.com/in/beesam-gayathri](https://linkedin.com/in/beesam-gayathri)  
 
-GitHub Repo: fake-news-detection-genai
+---
 
-2️⃣ Customer Churn Prediction 📊
-
-Predicts customer churn for a telecom company using classification models.
-
-Tech Stack: Python, Scikit-learn, Pandas, Data Analysis
-
-GitHub Repo: customer-churn-prediction
- (add repo link if available)
-
-3️⃣ Recommendation System 🎯
-
-Personalized recommendation system based on user behavior.
-
-Tech Stack: Python, Machine Learning, Data Analysis
-
-GitHub Repo: recommendation-system
- (add repo link if available)
-
-📫 Contact
-
-GitHub: https://github.com/gayathri-genai
-
-LinkedIn: https://linkedin.com/in/beesam-gayathri
+### 🔹 Tips:
+- Keep all project links **live and tested**.  
+- You can also add **badges** for Python, Streamlit, or GitHub to make your portfolio visually attractive.  
+- Update this README whenever you add new projects to keep your portfolio fresh.
