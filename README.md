@@ -35,11 +35,6 @@ https://github.com/BeesamGayathri/fake-news-detection-genai
 
 - **GitHub:** https://github.com/BeesamGayathri  
 - **LinkedIn:** https://linkedin.com/in/beesam-gayathri
-## 🎥 App Demo  
-
-<p align="center">
-  <img src="demo.gif" width="800">
-</p>
 
 > **Note:** If the repository link does not open temporarily, please refresh the page or try opening it in an incognito window.
 
