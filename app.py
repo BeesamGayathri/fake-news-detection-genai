@@ -60,10 +60,10 @@ vectorizer = pickle.load(open(vectorizer_path, "rb"))
 # Title
 # -------------------------------
 st.markdown('<div class="title">📰 Fake News Detection</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Hybrid AI (ML + Smart Rules)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Hybrid AI with Confidence-Based Logic</div>', unsafe_allow_html=True)
 
 # -------------------------------
-# Examples (FINAL CLEAN)
+# Examples
 # -------------------------------
 examples = {
 
@@ -103,9 +103,18 @@ if st.button("🚀 Analyze"):
     if user_input.strip() == "":
         st.warning("⚠️ Enter text")
     else:
-        # -------------------------------
-        # STRICT RULE-BASED FILTER (FIXED)
-        # -------------------------------
+        # ML Prediction
+        transformed = vectorizer.transform([user_input])
+        prediction = model.predict(transformed)[0]
+
+        try:
+            prob = model.predict_proba(transformed)[0]
+            confidence = max(prob)
+        except:
+            prob = None
+            confidence = 1
+
+        # Rule-based keywords (STRICT)
         fake_keywords = [
             "miracle cure",
             "cure all diseases",
@@ -120,42 +129,25 @@ if st.button("🚀 Analyze"):
         text_lower = user_input.lower()
         rule_flag = any(keyword in text_lower for keyword in fake_keywords)
 
-        # -------------------------------
-        # ML Prediction
-        # -------------------------------
-        transformed = vectorizer.transform([user_input])
-        prediction = model.predict(transformed)[0]
+        # SMART HYBRID LOGIC
+        if rule_flag and confidence < 0.70:
+            prediction = 0  # Override only when model is unsure
 
-        try:
-            prob = model.predict_proba(transformed)[0]
-        except:
-            prob = None
-
-        # -------------------------------
-        # HYBRID LOGIC
-        # -------------------------------
-        if rule_flag:
-            prediction = 0  # Force FAKE only for strong cases
-
-        # -------------------------------
-        # RESULT
-        # -------------------------------
+        # Result
         if prediction == 1:
             st.markdown('<div class="result-box real">✅ REAL NEWS</div>', unsafe_allow_html=True)
         else:
             st.markdown('<div class="result-box fake">❌ FAKE NEWS</div>', unsafe_allow_html=True)
 
-        # -------------------------------
-        # RULE ALERT
-        # -------------------------------
-        if rule_flag:
-            st.warning("⚠ Strong misinformation pattern detected")
+        # Show rule trigger
+        if rule_flag and confidence < 0.70:
+            st.warning("⚠ Suspicious pattern detected (low confidence override applied)")
 
-        # -------------------------------
-        # CONFIDENCE
-        # -------------------------------
+        # Confidence
         if prob is not None:
             st.subheader("📊 Confidence")
+
+            st.write(f"Overall Confidence: {confidence:.2f}")
 
             st.write("Fake Probability")
             st.progress(float(prob[0]))
@@ -163,9 +155,7 @@ if st.button("🚀 Analyze"):
             st.write("Real Probability")
             st.progress(float(prob[1]))
 
-        # -------------------------------
-        # ANALYSIS
-        # -------------------------------
+        # Analysis
         st.subheader("🧠 Analysis")
 
         word_count = len(user_input.split())
