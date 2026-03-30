@@ -1,34 +1,83 @@
-# app.py
 import streamlit as st
 import pickle
 
-# Load the model and vectorizer
-with open("fake_news_model.pkl", "rb") as f:
-    model = pickle.load(f)
+# -------------------------------
+# Load Model & Vectorizer
+# -------------------------------
+model = pickle.load(open("model.pkl", "rb"))
+vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
-with open("vectorizer.pkl", "rb") as f:
-    vectorizer = pickle.load(f)
+# -------------------------------
+# Page Config
+# -------------------------------
+st.set_page_config(page_title="Fake News Detection", page_icon="📰")
 
-# Streamlit app
-st.set_page_config(page_title="Fake News Classification", page_icon="📰")
-st.title("📰 Fake News Classification App")
-st.write(
-    "Enter the news text below and the model will predict whether it is Real or Fake."
+st.title("📰 Fake News Detection App")
+st.markdown("Detect whether a news article is **Real or Fake** using Machine Learning.")
+
+# -------------------------------
+# Sample Inputs
+# -------------------------------
+real_example = "India’s space agency successfully launched a new satellite to improve communication and weather forecasting systems."
+
+fake_example = "Drinking hot water every 10 minutes can completely cure all types of cancer without any medical treatment."
+
+# -------------------------------
+# Buttons Layout
+# -------------------------------
+col1, col2 = st.columns(2)
+
+with col1:
+    if st.button("🟢 Try Real Example"):
+        st.session_state["news_input"] = real_example
+
+with col2:
+    if st.button("🔴 Try Fake Example"):
+        st.session_state["news_input"] = fake_example
+
+# -------------------------------
+# Text Input
+# -------------------------------
+user_input = st.text_area(
+    "✍️ Enter News Text:",
+    value=st.session_state.get("news_input", ""),
+    height=180
 )
 
-# Text input
-user_input = st.text_area("Enter News Text:", height=150)
-
-# Predict button
-if st.button("Predict"):
+# -------------------------------
+# Prediction
+# -------------------------------
+if st.button("🚀 Predict"):
     if user_input.strip() == "":
-        st.warning("Please enter some news text!")
+        st.warning("⚠️ Please enter some news text")
     else:
-        # Transform the input using the vectorizer
-        input_vector = vectorizer.transform([user_input])
-        prediction = model.predict(input_vector)[0]
+        # Transform input
+        transformed_input = vectorizer.transform([user_input])
 
+        # Prediction
+        prediction = model.predict(transformed_input)[0]
+
+        # Probability (Confidence)
+        try:
+            probability = model.predict_proba(transformed_input)[0]
+            confidence = max(probability)
+        except:
+            confidence = None
+
+        # -------------------------------
+        # Output Result
+        # -------------------------------
         if prediction == 1:
-            st.error("❌ Fake News")
+            st.success("✅ This is Real News")
         else:
-            st.success("✅ Real News")
+            st.error("❌ This is Fake News")
+
+        # Confidence Score
+        if confidence:
+            st.info(f"🔍 Confidence: {confidence:.2f}")
+
+# -------------------------------
+# Footer
+# -------------------------------
+st.markdown("---")
+st.markdown("👩‍💻 Built by **Beesam Gayathri**")
