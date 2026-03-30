@@ -89,6 +89,11 @@ pip install -r requirements.txt
 streamlit run app.py  
 
 ---
+## 🎥 App Demo  
+
+<p align="center">
+  <img src="demo.gif" width="600"/>
+</p>
 
 ## 📈 Future Improvements
 - 🔄 Implement Deep Learning models (LSTM, BERT)  
