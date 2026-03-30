@@ -105,12 +105,16 @@ col2.metric("Model", "ML Classifier")
 # -------------------------------
 examples = {
 
-    # 🟢 REAL NEWS
-    "🟢 Real 1": "The government announced a new policy to improve digital education in rural areas.",
-    "🟢 Real 2": "India successfully launched a communication satellite from Sriharikota.",
-    "🟢 Real 3": "Scientists published research on renewable energy efficiency in a leading journal.",
-    "🟢 Real 4": "Stock markets increased as major IT companies reported higher profits.",
-    "🟢 Real 5": "The health ministry issued new safety guidelines to prevent disease spread.",
+     # 🟢 REAL NEWS (More realistic + diverse)
+    "🟢 Real 1": "The Reserve Bank announced a change in interest rates to control inflation.",
+    "🟢 Real 2": "India’s GDP growth is expected to rise due to strong manufacturing output.",
+    "🟢 Real 3": "A new healthcare scheme was launched to provide free medical services to low-income families.",
+    "🟢 Real 4": "Scientists published research on climate change impacts in a leading journal.",
+    "🟢 Real 5": "The metro rail expansion project will reduce daily traffic congestion significantly.",
+    "🟢 Real 6": "The education board released updated syllabus guidelines for the academic year.",
+    "🟢 Real 7": "Tech companies are investing heavily in artificial intelligence and automation.",
+    "🟢 Real 8": "The government announced new startup funding initiatives for entrepreneurs.",
+
 
     # 🔴 FAKE NEWS
     "🔴 Fake 1": "Scientists confirm a miracle cure that can eliminate all diseases instantly without medicine.",
