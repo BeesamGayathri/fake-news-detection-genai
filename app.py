@@ -105,14 +105,12 @@ col2.metric("Model", "ML Classifier")
 # -------------------------------
 examples = {
 
-    # 🟢 REAL NEWS (MODEL-FRIENDLY)
-"🟢 Real 1": "The government announced a new education program for students.",
-"🟢 Real 2": "A new public health initiative was launched to improve healthcare services.",
-"🟢 Real 3": "The city administration started a cleanliness drive across all areas.",
-"🟢 Real 4": "Officials reported an increase in employment rates this year.",
-"🟢 Real 5": "The ministry released new guidelines for public safety and awareness."
-
-     
+    # 🟢 REAL NEWS
+    "🟢 Real 1": "The government announced a new education program for students.",
+    "🟢 Real 2": "A new public health initiative was launched to improve healthcare services.",
+    "🟢 Real 3": "The city administration started a cleanliness drive across all areas.",
+    "🟢 Real 4": "Officials reported an increase in employment rates this year.",
+    "🟢 Real 5": "The ministry released new guidelines for public safety and awareness.",
 
     # 🔴 FAKE NEWS
     "🔴 Fake 1": "Scientists confirm a miracle cure that can eliminate all diseases instantly without medicine.",
