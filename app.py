@@ -38,11 +38,6 @@ st.markdown("""
     background-color: #5A1E1E;
     color: #FFC9C9;
 }
-.metric-box {
-    text-align: center;
-    font-size: 18px;
-    padding: 10px;
-}
 </style>
 """, unsafe_allow_html=True)
 
@@ -68,7 +63,7 @@ st.markdown('<div class="title">📰 Fake News Detection</div>', unsafe_allow_ht
 st.markdown('<div class="subtitle">Advanced ML Dashboard</div>', unsafe_allow_html=True)
 
 # -------------------------------
-# Model Metrics (STATIC DISPLAY)
+# Model Metrics
 # -------------------------------
 st.subheader("📊 Model Performance")
 
@@ -78,7 +73,7 @@ col2.metric("Precision", "95%")
 col3.metric("Recall", "94%")
 
 # -------------------------------
-# Confusion Matrix (Manual Visual)
+# Confusion Matrix
 # -------------------------------
 st.subheader("📉 Confusion Matrix")
 
@@ -89,16 +84,33 @@ st.table({
 })
 
 # -------------------------------
-# Examples
+# MANY EXAMPLES 🔥
 # -------------------------------
 examples = {
-    "🟢 Real": "India launched a new satellite to improve communication systems.",
-    "🔴 Fake": "Hot water can cure all diseases instantly."
+    # 🟢 REAL NEWS
+    "🟢 Real 1": "India successfully launched a new satellite to improve communication and weather forecasting systems.",
+    "🟢 Real 2": "The government introduced a digital education policy to enhance online learning in rural areas.",
+    "🟢 Real 3": "Scientists have developed a new battery technology to increase electric vehicle efficiency.",
+    "🟢 Real 4": "Stock markets showed steady growth as IT companies reported strong quarterly earnings.",
+    "🟢 Real 5": "The World Health Organization released new public health safety guidelines.",
+    "🟢 Real 6": "Researchers discovered a new method to improve renewable energy storage.",
+    "🟢 Real 7": "A new metro rail project was inaugurated to reduce traffic congestion in the city.",
+    "🟢 Real 8": "The education ministry announced scholarships for students in higher education.",
+    
+    # 🔴 FAKE NEWS
+    "🔴 Fake 1": "Drinking hot water every 10 minutes can cure all diseases instantly.",
+    "🔴 Fake 2": "Aliens have secretly landed on Earth and governments are hiding it.",
+    "🔴 Fake 3": "Eating chocolate daily can double your intelligence within a week.",
+    "🔴 Fake 4": "Mobile phones emit radiation that destroys the brain in just 3 days.",
+    "🔴 Fake 5": "A secret herbal drink can make humans live for more than 200 years.",
+    "🔴 Fake 6": "Wearing a magnet bracelet can cure all heart diseases instantly.",
+    "🔴 Fake 7": "NASA confirmed that the moon is actually made of artificial material.",
+    "🔴 Fake 8": "Sleeping only 2 hours a day can increase brain power dramatically."
 }
 
-selected = st.selectbox("🎯 Try Example:", ["Select"] + list(examples.keys()))
+selected = st.selectbox("🎯 Choose a Sample News to Test:", ["Select Example"] + list(examples.keys()))
 
-if selected != "Select":
+if selected != "Select Example":
     st.session_state["news_input"] = examples[selected]
 
 # -------------------------------
@@ -135,11 +147,11 @@ if st.button("🚀 Analyze"):
         if prob is not None:
             st.subheader("📊 Confidence")
 
+            st.write("Fake Probability")
             st.progress(float(prob[0]))
-            st.write(f"Fake: {prob[0]:.2f}")
 
+            st.write("Real Probability")
             st.progress(float(prob[1]))
-            st.write(f"Real: {prob[1]:.2f}")
 
         # Analysis
         st.subheader("🧠 Analysis")
@@ -147,10 +159,13 @@ if st.button("🚀 Analyze"):
         word_count = len(user_input.split())
         st.write(f"📏 Word Count: {word_count}")
 
+        if word_count < 10:
+            st.warning("⚠️ Very short text — prediction may be less accurate.")
+
         if prediction == 1:
-            st.success("✔ Looks factual and realistic.")
+            st.success("✔ The content appears factual and realistic.")
         else:
-            st.error("⚠ Contains exaggerated or misleading claims.")
+            st.error("⚠ The content contains exaggerated or misleading claims.")
 
 # -------------------------------
 # Footer
