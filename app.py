@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import os
+import matplotlib.pyplot as plt
 
 # -------------------------------
 # Page Config
@@ -8,13 +9,10 @@ import os
 st.set_page_config(page_title="Fake News Detection", page_icon="📰", layout="centered")
 
 # -------------------------------
-# Custom CSS (UI Styling)
+# Custom CSS
 # -------------------------------
 st.markdown("""
 <style>
-.main {
-    background-color: #0E1117;
-}
 .title {
     text-align: center;
     font-size: 40px;
@@ -50,49 +48,43 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -------------------------------
-# Load Model & Vectorizer (FIXED)
+# Load Model
 # -------------------------------
 BASE_DIR = os.path.dirname(__file__)
 
 model_path = os.path.join(BASE_DIR, "fake_news_model.pkl")
 vectorizer_path = os.path.join(BASE_DIR, "vectorizer.pkl")
 
-# Check files exist
 if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
     st.error("❌ Model files not found. Please ensure fake_news_model.pkl and vectorizer.pkl are in the repository.")
     st.stop()
 
-# Load files
 model = pickle.load(open(model_path, "rb"))
 vectorizer = pickle.load(open(vectorizer_path, "rb"))
 
 # -------------------------------
-# Title Section
+# Title
 # -------------------------------
 st.markdown('<div class="title">📰 Fake News Detection</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">AI-powered system to detect Real vs Fake news</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">AI-powered system with ML insights</div>', unsafe_allow_html=True)
 
 st.write("")
 
 # -------------------------------
-# Sample Inputs
+# Examples
 # -------------------------------
-real_example = "India’s space agency successfully launched a new satellite to improve communication and weather forecasting systems."
+examples = {
+    "🟢 Real News": "India’s space agency successfully launched a new satellite to improve communication.",
+    "🔴 Fake News": "Drinking hot water every 10 minutes cures all cancer instantly."
+}
 
-fake_example = "Drinking hot water every 10 minutes can completely cure all types of cancer without any medical treatment."
+selected = st.selectbox("🎯 Try Sample:", ["Select"] + list(examples.keys()))
 
-col1, col2 = st.columns(2)
-
-with col1:
-    if st.button("🟢 Try Real News"):
-        st.session_state["news_input"] = real_example
-
-with col2:
-    if st.button("🔴 Try Fake News"):
-        st.session_state["news_input"] = fake_example
+if selected != "Select":
+    st.session_state["news_input"] = examples[selected]
 
 # -------------------------------
-# User Input
+# Input
 # -------------------------------
 user_input = st.text_area(
     "✍️ Enter News Content:",
@@ -103,34 +95,54 @@ user_input = st.text_area(
 # -------------------------------
 # Prediction
 # -------------------------------
-if st.button("🚀 Analyze News"):
+if st.button("🚀 Analyze"):
     if user_input.strip() == "":
-        st.warning("⚠️ Please enter some news text")
+        st.warning("⚠️ Enter text")
     else:
+        transformed = vectorizer.transform([user_input])
+        prediction = model.predict(transformed)[0]
+
         try:
-            transformed_input = vectorizer.transform([user_input])
-            prediction = model.predict(transformed_input)[0]
+            prob = model.predict_proba(transformed)[0]
+        except:
+            prob = None
 
-            try:
-                probability = model.predict_proba(transformed_input)[0]
-                confidence = max(probability)
-            except:
-                confidence = None
+        # Result
+        if prediction == 1:
+            st.markdown(
+                f'<div class="result-box real">✅ REAL NEWS</div>',
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f'<div class="result-box fake">❌ FAKE NEWS</div>',
+                unsafe_allow_html=True
+            )
 
-            # Result UI
-            if prediction == 1:
-                st.markdown(
-                    f'<div class="result-box real">✅ REAL NEWS<br>Confidence: {confidence:.2f}</div>',
-                    unsafe_allow_html=True
-                )
-            else:
-                st.markdown(
-                    f'<div class="result-box fake">❌ FAKE NEWS<br>Confidence: {confidence:.2f}</div>',
-                    unsafe_allow_html=True
-                )
+        # -------------------------------
+        # 📊 Probability Chart (NEW 🔥)
+        # -------------------------------
+        if prob is not None:
+            st.subheader("📊 Prediction Confidence")
 
-        except Exception as e:
-            st.error(f"⚠️ Prediction error: {e}")
+            labels = ["Fake", "Real"]
+
+            fig, ax = plt.subplots()
+            ax.bar(labels, prob)
+            ax.set_ylabel("Probability")
+            ax.set_title("Model Confidence")
+
+            st.pyplot(fig)
+
+# -------------------------------
+# 🧠 Model Info Section (NEW)
+# -------------------------------
+with st.expander("🧠 Model Details"):
+    st.write("""
+    - Algorithm Used: Logistic Regression / Naive Bayes  
+    - Feature Extraction: TF-IDF Vectorization  
+    - Type: Supervised Machine Learning  
+    """)
 
 # -------------------------------
 # Footer
