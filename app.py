@@ -8,15 +8,12 @@ import os
 st.set_page_config(page_title="Fake News Detection", page_icon="📰", layout="centered")
 
 # -------------------------------
-# Custom CSS (🔥 UI Upgrade)
+# Custom CSS (UI Styling)
 # -------------------------------
 st.markdown("""
 <style>
 .main {
     background-color: #0E1117;
-}
-.stTextArea textarea {
-    font-size: 16px;
 }
 .title {
     text-align: center;
@@ -53,13 +50,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -------------------------------
-# Load Model (FIXED PATH)
+# Load Model & Vectorizer (FIXED)
 # -------------------------------
 BASE_DIR = os.path.dirname(__file__)
 
 model_path = os.path.join(BASE_DIR, "fake_news_model.pkl")
 vectorizer_path = os.path.join(BASE_DIR, "vectorizer.pkl")
 
+# Check files exist
+if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
+    st.error("❌ Model files not found. Please ensure fake_news_model.pkl and vectorizer.pkl are in the repository.")
+    st.stop()
+
+# Load files
 model = pickle.load(open(model_path, "rb"))
 vectorizer = pickle.load(open(vectorizer_path, "rb"))
 
@@ -89,7 +92,7 @@ with col2:
         st.session_state["news_input"] = fake_example
 
 # -------------------------------
-# Input Box
+# User Input
 # -------------------------------
 user_input = st.text_area(
     "✍️ Enter News Content:",
@@ -98,34 +101,36 @@ user_input = st.text_area(
 )
 
 # -------------------------------
-# Predict Button
+# Prediction
 # -------------------------------
 if st.button("🚀 Analyze News"):
     if user_input.strip() == "":
         st.warning("⚠️ Please enter some news text")
     else:
-        transformed_input = vectorizer.transform([user_input])
-        prediction = model.predict(transformed_input)[0]
-
         try:
-            probability = model.predict_proba(transformed_input)[0]
-            confidence = max(probability)
-        except:
-            confidence = None
+            transformed_input = vectorizer.transform([user_input])
+            prediction = model.predict(transformed_input)[0]
 
-        # -------------------------------
-        # Styled Output
-        # -------------------------------
-        if prediction == 1:
-            st.markdown(
-                f'<div class="result-box real">✅ REAL NEWS<br>Confidence: {confidence:.2f}</div>',
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                f'<div class="result-box fake">❌ FAKE NEWS<br>Confidence: {confidence:.2f}</div>',
-                unsafe_allow_html=True
-            )
+            try:
+                probability = model.predict_proba(transformed_input)[0]
+                confidence = max(probability)
+            except:
+                confidence = None
+
+            # Result UI
+            if prediction == 1:
+                st.markdown(
+                    f'<div class="result-box real">✅ REAL NEWS<br>Confidence: {confidence:.2f}</div>',
+                    unsafe_allow_html=True
+                )
+            else:
+                st.markdown(
+                    f'<div class="result-box fake">❌ FAKE NEWS<br>Confidence: {confidence:.2f}</div>',
+                    unsafe_allow_html=True
+                )
+
+        except Exception as e:
+            st.error(f"⚠️ Prediction error: {e}")
 
 # -------------------------------
 # Footer
