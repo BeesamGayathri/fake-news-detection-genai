@@ -60,10 +60,10 @@ vectorizer = pickle.load(open(vectorizer_path, "rb"))
 # Title
 # -------------------------------
 st.markdown('<div class="title">📰 Fake News Detection</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Hybrid AI with Confidence-Based Logic</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Machine Learning Based News Classification</div>', unsafe_allow_html=True)
 
 # -------------------------------
-# Examples
+# Examples (FINAL CLEAN)
 # -------------------------------
 examples = {
 
@@ -97,13 +97,12 @@ user_input = st.text_area(
 )
 
 # -------------------------------
-# Prediction
+# Prediction (PURE ML)
 # -------------------------------
 if st.button("🚀 Analyze"):
     if user_input.strip() == "":
         st.warning("⚠️ Enter text")
     else:
-        # ML Prediction
         transformed = vectorizer.transform([user_input])
         prediction = model.predict(transformed)[0]
 
@@ -112,36 +111,13 @@ if st.button("🚀 Analyze"):
             confidence = max(prob)
         except:
             prob = None
-            confidence = 1
-
-        # Rule-based keywords (STRICT)
-        fake_keywords = [
-            "miracle cure",
-            "cure all diseases",
-            "cure cancer instantly",
-            "without any treatment",
-            "live 300 years",
-            "aliens control earth",
-            "100% guarantee",
-            "double intelligence instantly"
-        ]
-
-        text_lower = user_input.lower()
-        rule_flag = any(keyword in text_lower for keyword in fake_keywords)
-
-        # SMART HYBRID LOGIC
-        if rule_flag and confidence < 0.70:
-            prediction = 0  # Override only when model is unsure
+            confidence = None
 
         # Result
         if prediction == 1:
             st.markdown('<div class="result-box real">✅ REAL NEWS</div>', unsafe_allow_html=True)
         else:
             st.markdown('<div class="result-box fake">❌ FAKE NEWS</div>', unsafe_allow_html=True)
-
-        # Show rule trigger
-        if rule_flag and confidence < 0.70:
-            st.warning("⚠ Suspicious pattern detected (low confidence override applied)")
 
         # Confidence
         if prob is not None:
@@ -167,7 +143,7 @@ if st.button("🚀 Analyze"):
         if prediction == 1:
             st.success("✔ Content appears factual and realistic.")
         else:
-            st.error("⚠ Content contains exaggerated or misleading claims.")
+            st.error("⚠ Content contains misleading or unrealistic claims.")
 
 # -------------------------------
 # Footer
