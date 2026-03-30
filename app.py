@@ -60,7 +60,7 @@ vectorizer = pickle.load(open(vectorizer_path, "rb"))
 # Title
 # -------------------------------
 st.markdown('<div class="title">📰 Fake News Detection</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Advanced ML Dashboard</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Hybrid AI (ML + Rule-Based Detection)</div>', unsafe_allow_html=True)
 
 # -------------------------------
 # Model Metrics
@@ -84,31 +84,21 @@ st.table({
 })
 
 # -------------------------------
-# MANY EXAMPLES 🔥
+# Examples
 # -------------------------------
 examples = {
-    # 🟢 REAL NEWS
-    "🟢 Real 1": "India successfully launched a new satellite to improve communication and weather forecasting systems.",
-    "🟢 Real 2": "The government introduced a digital education policy to enhance online learning in rural areas.",
-    "🟢 Real 3": "Scientists have developed a new battery technology to increase electric vehicle efficiency.",
-    "🟢 Real 4": "Stock markets showed steady growth as IT companies reported strong quarterly earnings.",
-    "🟢 Real 5": "The World Health Organization released new public health safety guidelines.",
-    "🟢 Real 6": "Researchers discovered a new method to improve renewable energy storage.",
-    "🟢 Real 7": "A new metro rail project was inaugurated to reduce traffic congestion in the city.",
-    "🟢 Real 8": "The education ministry announced scholarships for students in higher education.",
+    # 🟢 REAL
+    "🟢 Real 1": "India successfully launched a satellite to improve communication systems.",
+    "🟢 Real 2": "Government introduced digital education policy for rural areas.",
+    "🟢 Real 3": "Scientists developed new battery technology for electric vehicles.",
     
-    # 🔴 FAKE NEWS
+    # 🔴 FAKE
     "🔴 Fake 1": "Scientists confirm that drinking hot water every 10 minutes cures cancer completely without medicine.",
     "🔴 Fake 2": "Aliens have secretly landed on Earth and governments are hiding it.",
-    "🔴 Fake 3": "Eating chocolate daily can double your intelligence within a week.",
-    "🔴 Fake 4": "Mobile phones emit radiation that destroys the brain in just 3 days.",
-    "🔴 Fake 5": "A secret herbal drink can make humans live for more than 200 years.",
-    "🔴 Fake 6": "Wearing a magnet bracelet can cure all heart diseases instantly.",
-    "🔴 Fake 7": "NASA confirmed that the moon is actually made of artificial material.",
-    "🔴 Fake 8": "Sleeping only 2 hours a day can increase brain power dramatically."
+    "🔴 Fake 3": "Eating chocolate daily doubles intelligence instantly."
 }
 
-selected = st.selectbox("🎯 Choose a Sample News to Test:", ["Select Example"] + list(examples.keys()))
+selected = st.selectbox("🎯 Choose Sample News:", ["Select Example"] + list(examples.keys()))
 
 if selected != "Select Example":
     st.session_state["news_input"] = examples[selected]
@@ -129,6 +119,21 @@ if st.button("🚀 Analyze"):
     if user_input.strip() == "":
         st.warning("⚠️ Enter text")
     else:
+        # -------------------------------
+        # RULE-BASED DETECTION 🔥
+        # -------------------------------
+        fake_keywords = [
+            "cure cancer", "instant cure", "aliens",
+            "secret", "100% guarantee", "no medicine",
+            "miracle", "double intelligence"
+        ]
+
+        text_lower = user_input.lower()
+        rule_flag = any(keyword in text_lower for keyword in fake_keywords)
+
+        # -------------------------------
+        # ML Prediction
+        # -------------------------------
         transformed = vectorizer.transform([user_input])
         prediction = model.predict(transformed)[0]
 
@@ -137,13 +142,29 @@ if st.button("🚀 Analyze"):
         except:
             prob = None
 
-        # Result
+        # -------------------------------
+        # HYBRID LOGIC (FINAL FIX)
+        # -------------------------------
+        if rule_flag:
+            prediction = 0  # Force FAKE
+
+        # -------------------------------
+        # RESULT DISPLAY
+        # -------------------------------
         if prediction == 1:
             st.markdown('<div class="result-box real">✅ REAL NEWS</div>', unsafe_allow_html=True)
         else:
             st.markdown('<div class="result-box fake">❌ FAKE NEWS</div>', unsafe_allow_html=True)
 
-        # Probability
+        # -------------------------------
+        # RULE ALERT
+        # -------------------------------
+        if rule_flag:
+            st.warning("⚠ Suspicious keywords detected (Rule-based override applied)")
+
+        # -------------------------------
+        # CONFIDENCE
+        # -------------------------------
         if prob is not None:
             st.subheader("📊 Confidence")
 
@@ -153,19 +174,21 @@ if st.button("🚀 Analyze"):
             st.write("Real Probability")
             st.progress(float(prob[1]))
 
-        # Analysis
+        # -------------------------------
+        # ANALYSIS
+        # -------------------------------
         st.subheader("🧠 Analysis")
 
         word_count = len(user_input.split())
         st.write(f"📏 Word Count: {word_count}")
 
         if word_count < 10:
-            st.warning("⚠️ Very short text — prediction may be less accurate.")
+            st.warning("⚠ Short text may reduce accuracy")
 
         if prediction == 1:
-            st.success("✔ The content appears factual and realistic.")
+            st.success("✔ Content appears factual and realistic.")
         else:
-            st.error("⚠ The content contains exaggerated or misleading claims.")
+            st.error("⚠ Content contains exaggerated or misleading claims.")
 
 # -------------------------------
 # Footer
