@@ -1,7 +1,6 @@
 import streamlit as st
 import pickle
 import os
-import pandas as pd
 
 # -------------------------------
 # Page Config
@@ -74,10 +73,8 @@ st.write("")
 # Examples
 # -------------------------------
 examples = {
-    "🟢 Real News 1": "India’s space agency successfully launched a new satellite to improve communication and weather forecasting systems.",
-    "🟢 Real News 2": "The government announced a new policy to improve digital education infrastructure in rural areas.",
-    "🔴 Fake News 1": "Drinking hot water every 10 minutes can completely cure all types of cancer.",
-    "🔴 Fake News 2": "Aliens have secretly landed on Earth and governments are hiding the truth."
+    "🟢 Real News": "India’s space agency successfully launched a new satellite.",
+    "🔴 Fake News": "Drinking hot water cures all cancer instantly."
 }
 
 selected = st.selectbox("🎯 Try Sample:", ["Select"] + list(examples.keys()))
@@ -112,41 +109,18 @@ if st.button("🚀 Analyze"):
 
             # Result
             if prediction == 1:
-                st.markdown(
-                    '<div class="result-box real">✅ REAL NEWS</div>',
-                    unsafe_allow_html=True
-                )
+                st.markdown('<div class="result-box real">✅ REAL NEWS</div>', unsafe_allow_html=True)
             else:
-                st.markdown(
-                    '<div class="result-box fake">❌ FAKE NEWS</div>',
-                    unsafe_allow_html=True
-                )
+                st.markdown('<div class="result-box fake">❌ FAKE NEWS</div>', unsafe_allow_html=True)
 
-            # -------------------------------
-            # 📊 Streamlit Chart (NO matplotlib)
-            # -------------------------------
+            # Simple Confidence Display (NO pandas)
             if prob is not None:
                 st.subheader("📊 Prediction Confidence")
-
-                chart_data = pd.DataFrame({
-                    "Label": ["Fake", "Real"],
-                    "Probability": prob
-                })
-
-                st.bar_chart(chart_data.set_index("Label"))
+                st.write(f"Fake: {prob[0]:.2f}")
+                st.write(f"Real: {prob[1]:.2f}")
 
         except Exception as e:
             st.error(f"⚠️ Prediction error: {e}")
-
-# -------------------------------
-# Model Info
-# -------------------------------
-with st.expander("🧠 Model Details"):
-    st.write("""
-    - Algorithm Used: Logistic Regression / Naive Bayes  
-    - Feature Extraction: TF-IDF Vectorization  
-    - Type: Supervised Machine Learning  
-    """)
 
 # -------------------------------
 # Footer
