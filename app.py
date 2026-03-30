@@ -84,20 +84,24 @@ st.table({
 })
 
 # -------------------------------
-# Examples
+# CLEAN EXAMPLES (5 REAL + 5 FAKE)
 # -------------------------------
 examples = {
-    # 🟢 REAL
-    "🟢 Real 1": "India successfully launched a satellite to improve communication systems.",
-    "🟢 Real 2": "Government introduced digital education policy for rural areas.",
-    "🟢 Real 3": "Scientists developed new battery technology for electric vehicles.",
-    
-    # 🔴 FAKE
-    "🔴 Fake 1": "Scientists confirm that drinking hot water every 10 minutes cures cancer completely without medicine.",
-    "🔴 Fake 2": "Aliens have secretly landed on Earth and governments are hiding it.",
-    "🔴 Fake 3": "Eating chocolate daily doubles intelligence instantly."
-}
 
+    # 🟢 REAL NEWS
+    "🟢 Real 1": "The government announced a new policy to improve digital education in rural areas.",
+    "🟢 Real 2": "India successfully launched a satellite to enhance communication systems.",
+    "🟢 Real 3": "Scientists developed a new method to improve renewable energy efficiency.",
+    "🟢 Real 4": "The stock market showed steady growth due to strong IT sector performance.",
+    "🟢 Real 5": "The health ministry released new guidelines for public safety and hygiene.",
+
+    # 🔴 FAKE NEWS (very obvious + detectable)
+    "🔴 Fake 1": "Scientists confirm a miracle cure that can eliminate all diseases instantly without medicine.",
+    "🔴 Fake 2": "Aliens have officially taken control of Earth and governments are hiding it from the public.",
+    "🔴 Fake 3": "Eating one chocolate daily can increase intelligence by 200 percent instantly.",
+    "🔴 Fake 4": "A secret formula allows humans to live up to 300 years without aging.",
+    "🔴 Fake 5": "Drinking a special juice for 3 days can cure cancer completely without any treatment."
+}
 selected = st.selectbox("🎯 Choose Sample News:", ["Select Example"] + list(examples.keys()))
 
 if selected != "Select Example":
