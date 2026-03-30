@@ -1,7 +1,7 @@
 import streamlit as st
 import pickle
 import os
-import matplotlib.pyplot as plt
+import pandas as pd
 
 # -------------------------------
 # Page Config
@@ -74,8 +74,10 @@ st.write("")
 # Examples
 # -------------------------------
 examples = {
-    "🟢 Real News": "India’s space agency successfully launched a new satellite to improve communication.",
-    "🔴 Fake News": "Drinking hot water every 10 minutes cures all cancer instantly."
+    "🟢 Real News 1": "India’s space agency successfully launched a new satellite to improve communication and weather forecasting systems.",
+    "🟢 Real News 2": "The government announced a new policy to improve digital education infrastructure in rural areas.",
+    "🔴 Fake News 1": "Drinking hot water every 10 minutes can completely cure all types of cancer.",
+    "🔴 Fake News 2": "Aliens have secretly landed on Earth and governments are hiding the truth."
 }
 
 selected = st.selectbox("🎯 Try Sample:", ["Select"] + list(examples.keys()))
@@ -99,43 +101,45 @@ if st.button("🚀 Analyze"):
     if user_input.strip() == "":
         st.warning("⚠️ Enter text")
     else:
-        transformed = vectorizer.transform([user_input])
-        prediction = model.predict(transformed)[0]
-
         try:
-            prob = model.predict_proba(transformed)[0]
-        except:
-            prob = None
+            transformed = vectorizer.transform([user_input])
+            prediction = model.predict(transformed)[0]
 
-        # Result
-        if prediction == 1:
-            st.markdown(
-                f'<div class="result-box real">✅ REAL NEWS</div>',
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                f'<div class="result-box fake">❌ FAKE NEWS</div>',
-                unsafe_allow_html=True
-            )
+            try:
+                prob = model.predict_proba(transformed)[0]
+            except:
+                prob = None
 
-        # -------------------------------
-        # 📊 Probability Chart (NEW 🔥)
-        # -------------------------------
-        if prob is not None:
-            st.subheader("📊 Prediction Confidence")
+            # Result
+            if prediction == 1:
+                st.markdown(
+                    '<div class="result-box real">✅ REAL NEWS</div>',
+                    unsafe_allow_html=True
+                )
+            else:
+                st.markdown(
+                    '<div class="result-box fake">❌ FAKE NEWS</div>',
+                    unsafe_allow_html=True
+                )
 
-            labels = ["Fake", "Real"]
+            # -------------------------------
+            # 📊 Streamlit Chart (NO matplotlib)
+            # -------------------------------
+            if prob is not None:
+                st.subheader("📊 Prediction Confidence")
 
-            fig, ax = plt.subplots()
-            ax.bar(labels, prob)
-            ax.set_ylabel("Probability")
-            ax.set_title("Model Confidence")
+                chart_data = pd.DataFrame({
+                    "Label": ["Fake", "Real"],
+                    "Probability": prob
+                })
 
-            st.pyplot(fig)
+                st.bar_chart(chart_data.set_index("Label"))
+
+        except Exception as e:
+            st.error(f"⚠️ Prediction error: {e}")
 
 # -------------------------------
-# 🧠 Model Info Section (NEW)
+# Model Info
 # -------------------------------
 with st.expander("🧠 Model Details"):
     st.write("""
