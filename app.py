@@ -1,11 +1,22 @@
 import streamlit as st
 import pickle
+import os
 
 # -------------------------------
-# Load Model & Vectorizer
+# Load Model & Vectorizer (Safe Path)
 # -------------------------------
-model = pickle.load(open("model.pkl", "rb"))
-vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+BASE_DIR = os.path.dirname(__file__)
+
+model_path = os.path.join(BASE_DIR, "model.pkl")
+vectorizer_path = os.path.join(BASE_DIR, "vectorizer.pkl")
+
+# Check if files exist
+if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
+    st.error("❌ Model files not found. Please ensure model.pkl and vectorizer.pkl are in the repository.")
+    st.stop()
+
+model = pickle.load(open(model_path, "rb"))
+vectorizer = pickle.load(open(vectorizer_path, "rb"))
 
 # -------------------------------
 # Page Config
@@ -51,30 +62,31 @@ if st.button("🚀 Predict"):
     if user_input.strip() == "":
         st.warning("⚠️ Please enter some news text")
     else:
-        # Transform input
-        transformed_input = vectorizer.transform([user_input])
-
-        # Prediction
-        prediction = model.predict(transformed_input)[0]
-
-        # Probability (Confidence)
         try:
-            probability = model.predict_proba(transformed_input)[0]
-            confidence = max(probability)
-        except:
-            confidence = None
+            # Transform input
+            transformed_input = vectorizer.transform([user_input])
 
-        # -------------------------------
-        # Output Result
-        # -------------------------------
-        if prediction == 1:
-            st.success("✅ This is Real News")
-        else:
-            st.error("❌ This is Fake News")
+            # Prediction
+            prediction = model.predict(transformed_input)[0]
 
-        # Confidence Score
-        if confidence:
-            st.info(f"🔍 Confidence: {confidence:.2f}")
+            # Confidence Score
+            try:
+                probability = model.predict_proba(transformed_input)[0]
+                confidence = max(probability)
+            except:
+                confidence = None
+
+            # Output
+            if prediction == 1:
+                st.success("✅ This is Real News")
+            else:
+                st.error("❌ This is Fake News")
+
+            if confidence is not None:
+                st.info(f"🔍 Confidence: {confidence:.2f}")
+
+        except Exception as e:
+            st.error(f"⚠️ Error during prediction: {e}")
 
 # -------------------------------
 # Footer
