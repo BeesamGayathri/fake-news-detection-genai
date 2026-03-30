@@ -182,11 +182,7 @@ if st.button("🚀 Analyze"):
             st.success("✔ Content appears factual and realistic.")
         else:
             st.error("⚠ Content contains misleading or unrealistic claims.")
-## 🎥 App Demo  
 
-<p align="center">
-  <img src="demo.gif" width="600"/>
-</p>
 # -------------------------------
 # Footer
 # -------------------------------
