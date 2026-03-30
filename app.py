@@ -60,48 +60,28 @@ vectorizer = pickle.load(open(vectorizer_path, "rb"))
 # Title
 # -------------------------------
 st.markdown('<div class="title">📰 Fake News Detection</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Hybrid AI (ML + Rule-Based Detection)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Hybrid AI (ML + Smart Rules)</div>', unsafe_allow_html=True)
 
 # -------------------------------
-# Model Metrics
-# -------------------------------
-st.subheader("📊 Model Performance")
-
-col1, col2, col3 = st.columns(3)
-col1.metric("Accuracy", "96%")
-col2.metric("Precision", "95%")
-col3.metric("Recall", "94%")
-
-# -------------------------------
-# Confusion Matrix
-# -------------------------------
-st.subheader("📉 Confusion Matrix")
-
-st.table({
-    "": ["Actual Fake", "Actual Real"],
-    "Predicted Fake": ["120", "10"],
-    "Predicted Real": ["8", "140"]
-})
-
-# -------------------------------
-# CLEAN EXAMPLES (5 REAL + 5 FAKE)
+# Examples (FINAL CLEAN)
 # -------------------------------
 examples = {
 
     # 🟢 REAL NEWS
     "🟢 Real 1": "The government announced a new policy to improve digital education in rural areas.",
-    "🟢 Real 2": "India successfully launched a satellite to enhance communication systems.",
-    "🟢 Real 3": "Scientists developed a new method to improve renewable energy efficiency.",
-    "🟢 Real 4": "The stock market showed steady growth due to strong IT sector performance.",
-    "🟢 Real 5": "The health ministry released new guidelines for public safety and hygiene.",
+    "🟢 Real 2": "India successfully launched a communication satellite from Sriharikota.",
+    "🟢 Real 3": "Scientists published research on renewable energy efficiency in a leading journal.",
+    "🟢 Real 4": "Stock markets increased as major IT companies reported higher profits.",
+    "🟢 Real 5": "The health ministry issued new safety guidelines to prevent disease spread.",
 
-    # 🔴 FAKE NEWS (very obvious + detectable)
+    # 🔴 FAKE NEWS
     "🔴 Fake 1": "Scientists confirm a miracle cure that can eliminate all diseases instantly without medicine.",
-    "🔴 Fake 2": "Aliens have officially taken control of Earth and governments are hiding it from the public.",
+    "🔴 Fake 2": "Aliens have officially taken control of Earth and governments are hiding it.",
     "🔴 Fake 3": "Eating one chocolate daily can increase intelligence by 200 percent instantly.",
     "🔴 Fake 4": "A secret formula allows humans to live up to 300 years without aging.",
     "🔴 Fake 5": "Drinking a special juice for 3 days can cure cancer completely without any treatment."
 }
+
 selected = st.selectbox("🎯 Choose Sample News:", ["Select Example"] + list(examples.keys()))
 
 if selected != "Select Example":
@@ -124,12 +104,17 @@ if st.button("🚀 Analyze"):
         st.warning("⚠️ Enter text")
     else:
         # -------------------------------
-        # RULE-BASED DETECTION 🔥
+        # STRICT RULE-BASED FILTER (FIXED)
         # -------------------------------
         fake_keywords = [
-            "cure cancer", "instant cure", "aliens",
-            "secret", "100% guarantee", "no medicine",
-            "miracle", "double intelligence"
+            "miracle cure",
+            "cure all diseases",
+            "cure cancer instantly",
+            "without any treatment",
+            "live 300 years",
+            "aliens control earth",
+            "100% guarantee",
+            "double intelligence instantly"
         ]
 
         text_lower = user_input.lower()
@@ -147,13 +132,13 @@ if st.button("🚀 Analyze"):
             prob = None
 
         # -------------------------------
-        # HYBRID LOGIC (FINAL FIX)
+        # HYBRID LOGIC
         # -------------------------------
         if rule_flag:
-            prediction = 0  # Force FAKE
+            prediction = 0  # Force FAKE only for strong cases
 
         # -------------------------------
-        # RESULT DISPLAY
+        # RESULT
         # -------------------------------
         if prediction == 1:
             st.markdown('<div class="result-box real">✅ REAL NEWS</div>', unsafe_allow_html=True)
@@ -164,7 +149,7 @@ if st.button("🚀 Analyze"):
         # RULE ALERT
         # -------------------------------
         if rule_flag:
-            st.warning("⚠ Suspicious keywords detected (Rule-based override applied)")
+            st.warning("⚠ Strong misinformation pattern detected")
 
         # -------------------------------
         # CONFIDENCE
