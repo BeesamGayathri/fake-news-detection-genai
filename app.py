@@ -98,7 +98,7 @@ examples = {
     "🟢 Real 8": "The education ministry announced scholarships for students in higher education.",
     
     # 🔴 FAKE NEWS
-    "🔴 Fake 1": "Drinking hot water every 10 minutes can cure all diseases instantly.",
+    "🔴 Fake 1": "Scientists confirm that drinking hot water every 10 minutes cures cancer completely without medicine.",
     "🔴 Fake 2": "Aliens have secretly landed on Earth and governments are hiding it.",
     "🔴 Fake 3": "Eating chocolate daily can double your intelligence within a week.",
     "🔴 Fake 4": "Mobile phones emit radiation that destroys the brain in just 3 days.",
